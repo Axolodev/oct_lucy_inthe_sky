@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
-import { dialogReducer } from 'redux-dialog';
 
+import ActivePictureReducer from './active_picture_reducer';
 import PicturesReducer from './pictures_reducer';
 
 const rootReducer = combineReducers({
   pictures: PicturesReducer,
-  dialogReducer
+  activePicture: ActivePictureReducer,
 });
 
 export default rootReducer;

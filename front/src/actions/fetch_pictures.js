@@ -7,7 +7,6 @@ function requestPicturesData() {
 }
 
 function picturesFetchError(error) {
-  console.log(error);
   return {
     type: PICTURES_FETCH_ERROR
   }

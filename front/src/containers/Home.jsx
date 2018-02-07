@@ -1,52 +1,61 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
+import { bindActionCreators } from 'redux';
 
-import { selectPicture } from '../actions/index';
-import ShapedPicture from '../presentators/ShapedPicture';
+import { selectPicture } from '../actions/select_picture';
+import CustomLightbox from '../presentators/CustomLightbox';
+import PictureList from '../presentators/PictureList';
 
-const Background = styled.div`
-  background: url('/assets/mainBackground.jpg');
-  background-size: cover;
-  repeat: no-repeat;
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  z-index: -100;
-`;
+const Layout = styled.div`
+  display: grid;
+  grid-template: minmax(180px, 20vh) auto / auto;
+  text-align: center;
 
-const Container = styled.div`
-  max-width: 100vw;
+  & > .header {
+    text-align: center;
+    color: #660066;
+    
+    & > h1 {
+      font-size: 3em;
+      margin-bottom: 0;
+    }
+
+    & > h2 {
+      margin: 0;
+    }
+  }
 `;
 
 const FlexRow = styled.div`
   display: flex;
-  padding: 0 10vw;
   flex-wrap: wrap;
+  margin: auto;
 `;
 
 class Home extends Component {
-  renderPictureList() {
-    return this.props.pictures.map(picture => (
-      <ShapedPicture key={picture.imageUrl} picture={picture}/>
-    ));
-  }
-
   render() { 
     return ( 
-      <Container>
-        <Background />
-        <FlexRow>
-          {this.renderPictureList()}
-        </FlexRow> 
-      </Container>
+      <Fragment>
+        <Layout>
+          <div className="header">
+            <h1>Lucía Corona</h1>
+            <h2>Illustration</h2>
+          </div>
+          <FlexRow>
+            <PictureList 
+              pictures={this.props.pictures}
+              onPictureClick={this.props.selectPicture}
+              />
+          </FlexRow> 
+        </Layout>
+        <CustomLightbox/>
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = ({pictures}) => ({pictures});
-
 const mapDispatchToProps = dispatch => bindActionCreators({ selectPicture }, dispatch);
- 
+
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
