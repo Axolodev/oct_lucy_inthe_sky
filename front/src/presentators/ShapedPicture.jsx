@@ -1,30 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const PicturePresentation = ({picture, onClick}) => {
+const PicturePresentation = ({picture, onClick, index}) => {
   const { thumbnail } = picture;
-  // Final size is about 284px for each diamond.
+  // Final size is about 213px for each diamond.
   const Diamond = styled.div`
     overflow: hidden;
-    min-width: 200px;
-    width: 200px;
-    min-height: 200px;
-    margin: 41px;
-    height: 200px;
+    min-width: 150px;
+    min-height: 150px;
+    width: 150px;
+    height: 150px;
+    margin: 31px;
     transform: rotate(45deg);
     position: relative;
     border: 1px solid #85144b;
     cursor: pointer;
+    z-index: 10;
+    transition: linear 0.4s all;
 
     &::before {
       content: "";
       position: absolute;
-      top: -42px;
-      left: -42px;
+      top: -31px;
+      left: -31px;
       transform: rotate(-45deg);
       width: 142%;
       height: 142%;
       background: url(${thumbnail});
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: white;
     }
 
     &::after {
@@ -47,7 +53,7 @@ const PicturePresentation = ({picture, onClick}) => {
 
   return (
     <Diamond 
-      onClick={() => onClick(picture)}
+      onClick={() => onClick(index)}
     ></Diamond>
   )
 }

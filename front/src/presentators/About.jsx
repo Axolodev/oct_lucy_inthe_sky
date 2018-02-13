@@ -10,6 +10,7 @@ const Layout = styledComponents.div`
     text-align: justify;
     font-size: 1.5em;
     padding-bottom: 3em;
+    color: #111;
 
     & p:first-of-type {
       margin-top: 0;

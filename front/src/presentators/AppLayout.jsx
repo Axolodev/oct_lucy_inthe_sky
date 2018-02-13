@@ -29,7 +29,7 @@ const Layout = styled.div`
       bottom: 0;
       height: 10vh;
       width: 100%;
-      z-index: 999;
+      z-index: 99;
       grid-row: 2 / -1;
       grid-column: 1 / -1;
     }
