@@ -71,10 +71,7 @@ class PictureList extends Component {
       picturesAllowed = 1.5;
     }
 
-    let calc = picturesAllowed * minPictureWidth;
-    let margin = Math.abs(Math.floor((window.innerWidth -  minPictureWidth *1.5) / 2));
-
-    console.table({picturesAllowed, minPictureWidth, width: window.innerWidth, calc, margin})
+    let margin = Math.abs(Math.floor((window.innerWidth -  minPictureWidth * picturesAllowed) / 2));
     
     const PictureGridDisplay = styled.div`
       display: flex; 
@@ -110,7 +107,6 @@ class PictureList extends Component {
       onClick={this.props.onPictureClick}
       />
     );
-    
     
     const largeRenderedPictures = this.state.largePictureList.map((picture, index) => makePicture(picture, index));
     const shortRenderedPictures = this.state.shortPictureList.map((picture, index) => makePicture(picture, index));

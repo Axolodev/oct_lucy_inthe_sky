@@ -20,7 +20,7 @@ function picturesFetchSuccess(pictures) {
 }
 
 export function fetchPictures() {
-  const fetchUrl = '/assets/img_list.json';
+  const fetchUrl = 'http://localhost:8888/wp-json/wp/v2/imagenes?_embed';
 
   return function(dispatch) {
     dispatch(requestPicturesData());
@@ -31,7 +31,13 @@ export function fetchPictures() {
         error => dispatch(picturesFetchError(error))
       )
       .then(json => {
-        dispatch(picturesFetchSuccess(json));
+        const posts = json.map(({title, acf, _embedded}) => ({
+          imageUrl: _embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url,
+          title: title.rendered,
+          thumbnail: acf.thumbnail && acf.thumbnail.sizes.large,
+          description: acf.description && acf.description
+        }));          
+        dispatch(picturesFetchSuccess(posts));
       });
   }
 }

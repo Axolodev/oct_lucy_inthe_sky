@@ -9,33 +9,6 @@ body {
   font-family: 'FuturaBold';
 }
 
-a.active {
-  color: white;
-}
-
-
-@media (max-width: 47.99em), (orientation: portrait) {
-  a::after {
-    content: "";
-    position: absolute;
-    background-color: black;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: 0.3s ease-in all;
-  }
-
-  a.active::after {
-    opacity: 0.2;
-  } 
-}
-
-a.active:hover::before {
-  background-color: white;
-}
-
 @media (min-width: 48em) {
 
   ::-webkit-scrollbar-track

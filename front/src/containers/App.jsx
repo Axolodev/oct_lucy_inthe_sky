@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { fetchPictures } from '../actions/fetch_pictures';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 
 import AppLayout from '../presentators/AppLayout';
 

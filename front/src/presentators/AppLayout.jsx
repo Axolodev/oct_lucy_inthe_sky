@@ -37,7 +37,7 @@ const Layout = styled.div`
 `;
 
 const Background = styled.div`
-  background: url('/assets/mainBackground.jpg');
+  background: url('${process.env.PUBLIC_URL}/assets/mainBackground.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   width: 100vw;

@@ -19,7 +19,7 @@ export function debounce(func, wait, immediate) {
 	};
 };
 
-export const throttle = (func, limit) => {
+export function throttle (func, limit) {
   let inThrottle
   let lastFunc
   let lastRan
@@ -40,4 +40,8 @@ export const throttle = (func, limit) => {
       }, limit - (Date.now() - lastRan))
     }
   }
+}
+
+export function setPageTitle(title) {
+  document.title = `${title} - Lucía Corona`;
 }

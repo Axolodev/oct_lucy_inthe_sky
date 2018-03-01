@@ -1,19 +1,31 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import mediaSizeQueries from '../constants/media_queries';
+
+const pulseAnimation = keyframes`
+  0%, 40%, 60%, 100%, {
+    transform: translate(-50%, -50%) scale(1);      
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+`;
 
 const Navsection = styled.nav`
   color: white;
   background-color: #660066;
   display: flex;
   justify-content: center;
+  overflow: hidden;
+  position: relative;
 
   ${mediaSizeQueries.large`
     grid-template: 100vh / minmax(9vh, 90px) auto;
     flex-direction: column;  
-    padding: 10vh 10px;
+    padding: 10vh 0;
 
     & > .navbar {
       grid-row: 1 / -1;
@@ -21,51 +33,107 @@ const Navsection = styled.nav`
     }
   `}
 
-  & a {
-    color: rgba(255, 255, 255, 0.2);
-    font-size: 2em;
-    flex: 1;
-    text-align: center;
-    text-decoration: none;
-    transition: 0.2s linear all;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
+  &::before {
+    --size: 0;
+    content: '';
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--size);
+    height: var(--size);
+    background: radial-gradient(circle closest-side, white, transparent);
+    transition: width .2s ease, height .2s ease;
+    transform: translate(-50%, -50%);    
+    opacity: 0.5;
+    animation: ${pulseAnimation} 2s infinite;
+  }
 
-    ${mediaSizeQueries.large`
-      writing-mode: vertical-lr;
-      text-orientation: sideways;
-      transform: rotate(-180deg);
-      &::before {
-        content: "";
-        display: flex;
-        position: absolute;
-        width: 3px;
-        height: 100%;
-        bottom: 0;
-        left: 0;
-        background-color: rgba(255, 255, 255, 0.3);
-        visibility: hidden;
-        transform: scaleY(0);
-        transition: all 0.35s ease-in-out 0s;
-        border-radius: 5px;
-      }
-  
-      &:hover::before {
-        visibility: visible;
-        transform: scaleY(1);
-      }
-    `}
+  &:hover::before {
+    --size: 100px;
   }
 `;
 
+
+const StyledLink = styled(NavLink)`
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 2em;
+  flex: 1;
+  text-align: center;
+  text-decoration: none;
+  transition: 0.2s linear all;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.active {
+    color: white;
+
+    &::before {
+      background-color: white;
+    }
+    &::after {
+      opacity: 0.3;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: 0.3s ease-in all;
+    z-index: -1;
+  }
+
+  ${mediaSizeQueries.large`
+    writing-mode: vertical-lr;
+    text-orientation: sideways;
+    transform: rotate(-180deg);
+    
+    &::before {
+      content: "";
+      display: flex;
+      position: absolute;
+      width: 3px;
+      height: 100%;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, 0.5);
+      visibility: hidden;
+      transform: scaleY(0);
+      transition: all 0.35s ease-in-out 0s;
+      border-radius: 5px;
+    }
+
+    &:hover::before {
+      visibility: visible;
+      transform: scaleY(1);
+    }
+  `}
+`;
+
+let reference = null;
+
+const mouseMoveHandler = e => {  
+  const x = e.screenX - (e.screenX - e.pageX);
+  const y = e.screenY - (e.screenY - e.pageY);
+  reference.style.setProperty('--x', `${ x }px`)
+  reference.style.setProperty('--y', `${ y }px`)
+};
+
 const Navbar = () => (
-  <Navsection className="navbar">
-    <NavLink activeClassName='active' to="/about">About</NavLink>
-    <NavLink activeClassName='active' exact to="/">Portfolio</NavLink>
-    <NavLink activeClassName='active' to="/contact">Contact</NavLink>
+  <Navsection 
+    onMouseMove={mouseMoveHandler} 
+    innerRef={input => reference = input}
+    className="navbar">
+    <StyledLink activeClassName='active' to="/about">About</StyledLink>
+    <StyledLink activeClassName='active' exact to="/">Portfolio</StyledLink>
+    <StyledLink activeClassName='active' to="/contact">Contact</StyledLink>
   </Navsection>
 );
 

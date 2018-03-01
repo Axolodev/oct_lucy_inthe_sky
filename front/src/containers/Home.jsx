@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 
 import PictureList from '../presentators/PictureList';
+import { setPageTitle } from '../utils/functions';
+import LoadingText from '../presentators/LoadingText';
 
 const Layout = styled.div`
   display: grid;
-  grid-template: minmax(180px, 20vh) auto / auto;
+  grid-template: 180px auto / auto;
   text-align: center;
 
   & > .header {
@@ -25,6 +27,7 @@ const Layout = styled.div`
   }
 `;
 
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -38,6 +41,10 @@ class Home extends Component {
     this.onCloseRequest = this.onCloseRequest.bind(this);
     this.onNextPictureClick = this.onNextPictureClick.bind(this);
     this.onPrevPictureClick = this.onPrevPictureClick.bind(this);
+  }
+
+  componentDidMount() {
+    setPageTitle('Portfolio');
   }
 
   onPictureClick(currentPictureIndex) {
@@ -79,7 +86,6 @@ class Home extends Component {
 
   render() { 
     const { lightboxIsOpen, currentPictureIndex } = this.state;
-    
     const { pictures } = this.props;
 
     return ( 
@@ -89,10 +95,11 @@ class Home extends Component {
             <h1>Lucía Corona</h1>
             <h2>Illustration</h2>
           </div>
-          {pictures.length && <PictureList 
-            pictures={pictures}
-            onPictureClick={this.onPictureClick}
-            />}
+          { pictures.length ? 
+            <PictureList 
+              pictures={pictures}
+              onPictureClick={this.onPictureClick} /> : 
+            <LoadingText />}
         </Layout>
         { lightboxIsOpen && (
             <Lightbox
