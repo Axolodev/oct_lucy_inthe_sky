@@ -85,7 +85,7 @@ const StyledLink = styled(NavLink)`
   }
 
   ${mediaSizeQueries.large`
-    writing-mode: ${props => props.firefox ? 'horizontal' : 'vertical-lr'};
+    writing-mode: ${props => props.isfirefox ? 'horizontal' : 'vertical-lr'};
     text-orientation: sideways;
     transform: rotate(-180deg);
     -moz-transform: rotate(0);
@@ -97,7 +97,7 @@ const StyledLink = styled(NavLink)`
       width: 3px;
       height: 100%;
       bottom: 0;
-      ${props => props.firefox ? 'right: 0':'left:0'};
+      ${props => props.isfirefox ? 'right: 0':'left:0'};
       background-color: rgba(255, 255, 255, 0.5);
       visibility: hidden;
       transform: scaleY(0);
@@ -131,9 +131,9 @@ const Navbar = () => {
       onMouseMove={mouseMoveHandler} 
       innerRef={input => reference = input}
       className="navbar">
-      <StyledLink firefox={isFirefox} activeClassName='active' to="/about">About</StyledLink>
-      <StyledLink firefox={isFirefox} activeClassName='active' exact to="/">Portfolio</StyledLink>
-      <StyledLink firefox={isFirefox} activeClassName='active' to="/contact">Contact</StyledLink>
+      <StyledLink isfirefox={isFirefox} activeClassName='active' to="/about">About</StyledLink>
+      <StyledLink isfirefox={isFirefox} activeClassName='active' exact to="/">Portfolio</StyledLink>
+      <StyledLink isfirefox={isFirefox} activeClassName='active' to="/contact">Contact</StyledLink>
     </Navsection>
   )
 };
