@@ -23,14 +23,8 @@ const Navsection = styled.nav`
   position: relative;
 
   ${mediaSizeQueries.large`
-    grid-template: 100vh / minmax(9vh, 90px) auto;
     flex-direction: column;  
     padding: 10vh 0;
-
-    & > .navbar {
-      grid-row: 1 / -1;
-      grid-column: 1 / 2;
-    }
   `}
 
   &::before {
@@ -91,9 +85,10 @@ const StyledLink = styled(NavLink)`
   }
 
   ${mediaSizeQueries.large`
-    writing-mode: vertical-lr;
+    writing-mode: ${props => props.firefox ? 'horizontal' : 'vertical-lr'};
     text-orientation: sideways;
     transform: rotate(-180deg);
+    -moz-transform: rotate(0);
     
     &::before {
       content: "";
@@ -102,7 +97,7 @@ const StyledLink = styled(NavLink)`
       width: 3px;
       height: 100%;
       bottom: 0;
-      left: 0;
+      ${props => props.firefox ? 'right: 0':'left:0'};
       background-color: rgba(255, 255, 255, 0.5);
       visibility: hidden;
       transform: scaleY(0);
@@ -126,15 +121,21 @@ const mouseMoveHandler = e => {
   reference.style.setProperty('--y', `${ y }px`)
 };
 
-const Navbar = () => (
-  <Navsection 
-    onMouseMove={mouseMoveHandler} 
-    innerRef={input => reference = input}
-    className="navbar">
-    <StyledLink activeClassName='active' to="/about">About</StyledLink>
-    <StyledLink activeClassName='active' exact to="/">Portfolio</StyledLink>
-    <StyledLink activeClassName='active' to="/contact">Contact</StyledLink>
-  </Navsection>
-);
+const Navbar = () => {
+  // Hay un bug con firefox que impide usar flexbox + vertical-lr. El layout cambia cuando
+  // el usuario usa este browser.
+  const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
+  return (
+    <Navsection 
+      onMouseMove={mouseMoveHandler} 
+      innerRef={input => reference = input}
+      className="navbar">
+      <StyledLink firefox={isFirefox} activeClassName='active' to="/about">About</StyledLink>
+      <StyledLink firefox={isFirefox} activeClassName='active' exact to="/">Portfolio</StyledLink>
+      <StyledLink firefox={isFirefox} activeClassName='active' to="/contact">Contact</StyledLink>
+    </Navsection>
+  )
+};
 
 export default Navbar;

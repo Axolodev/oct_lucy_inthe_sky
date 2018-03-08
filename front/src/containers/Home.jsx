@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Lightbox from 'react-image-lightbox';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { observer } from 'mobx-react';
 
 import PictureList from '../presentators/PictureList';
 import { setPageTitle } from '../utils/functions';
@@ -27,66 +27,46 @@ const Layout = styled.div`
   }
 `;
 
-
 class Home extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      lightboxIsOpen: false,
-      currentPictureIndex: null
-    }
-
-    this.onPictureClick = this.onPictureClick.bind(this);
-    this.onCloseRequest = this.onCloseRequest.bind(this);
-    this.onNextPictureClick = this.onNextPictureClick.bind(this);
-    this.onPrevPictureClick = this.onPrevPictureClick.bind(this);
+  state = {
+    lightboxIsOpen: false,
+    currentPictureIndex: null
   }
 
   componentDidMount() {
     setPageTitle('Portfolio');
   }
 
-  onPictureClick(currentPictureIndex) {
+  onPictureClick = (currentPictureIndex) => {
     this.setState({
       lightboxIsOpen: true,
       currentPictureIndex
     });
   }
 
-  onCloseRequest() {
+  onCloseRequest = () => {
     this.setState({
       lightboxIsOpen: false
     });
   }
 
-  onNextPictureClick() {
+  onNextPictureClick = () => {
     let { currentPictureIndex } = this.state;
+    const pictures = this.props.store.pictures;
 
-    currentPictureIndex += 1;
-
-    if(currentPictureIndex >= this.props.pictures.length) {
-      currentPictureIndex = 0;
-    }
-
-    this.setState({currentPictureIndex});
+    this.setState({currentPictureIndex: (currentPictureIndex + 1) % pictures.length});
   }
 
-  onPrevPictureClick() {
+  onPrevPictureClick = () => {
     let { currentPictureIndex } = this.state;
+    const pictures = this.props.store.pictures;
 
-    currentPictureIndex -= 1;
-
-    if(currentPictureIndex < 0) {
-      currentPictureIndex = this.props.pictures.length - 1; 
-    }
-
-    this.setState({currentPictureIndex});
+    this.setState({currentPictureIndex: (currentPictureIndex + pictures.length - 1) % pictures.length});
   }
 
   render() { 
     const { lightboxIsOpen, currentPictureIndex } = this.state;
-    const { pictures } = this.props;
+    const pictures = this.props.store.pictures;
 
     return ( 
       <Fragment>
@@ -119,12 +99,9 @@ class Home extends Component {
             />
           )
         }
-        
       </Fragment>
     );
   }
 }
 
-const mapStateToProps = ({pictures}) => ({pictures});
-
-export default connect(mapStateToProps)(Home);
+export default observer(Home);

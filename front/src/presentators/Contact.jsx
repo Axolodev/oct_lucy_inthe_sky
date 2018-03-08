@@ -21,10 +21,6 @@ const Container = styled.div`
   justify-content: flex-start;
   align-items: center;
   position: relative;
-
-  ${mediaSizeQueries.large`
-    margin-left: 15vh;
-  `}
 `;
 
 const TextFixer = styled.div`
@@ -32,29 +28,14 @@ const TextFixer = styled.div`
   display: flex;
   
   ${mediaSizeQueries.large`
-    width: 500px;
+    width: 20em;
   `}
 `;
 
 const Header = styled.div`
-  justify-content: center;
   align-items: center;
   text-align: center;
   color: #660066;
-`;
-
-const OctatumContact = styled.div`
-  position: absolute;
-  border-bottom-left-radius: 10%;
-  border-bottom-right-radius: 10%;
-  border: 1px solid white;
-  left: 3em;
-  top: 3em;
-  z-index: -1;
-  padding: 1em;
-  background-color: #111;
-  color: white;
-  transform: rotate(-90deg);
 `;
 
 const Link = styled.a`
@@ -71,6 +52,25 @@ const ParagraphLink = Link.extend`
   ${mediaSizeQueries.small`
     display: none;
   `}
+`;
+
+const OctatumContact = Link.extend`
+  position: absolute;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
+  border: 1px solid white;
+  top: -1.1em;
+  left: 80%;
+  z-index: 1;
+  padding: 1em;
+  padding-top: 2em;
+  background-color: #111;
+  color: white;
+  transition: 0.2s linear all;
+
+  &:hover {
+    top: -0.7em;
+  }
 `;
 
 const Diamond = styled.div`
@@ -108,12 +108,6 @@ const Diamond = styled.div`
   }
 `;
 
-const MiddleFixer = TextFixer.extend`
-  position: absolute;
-  margin-top: 72px;
-  margin-left: -72px;
-`;
-
 const PurpleDiamond = Diamond.extend`
   background-color: #85144b;
   color: white;
@@ -146,35 +140,55 @@ const MailDiamond = Diamond.extend`
   }
 `;
 
+const MiddleDiamondsContainer = styled.div`
+  width: 40em;
+  height: 18em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const LeftDiamondsContainer = MiddleDiamondsContainer.extend`
+  position: absolute;
+  align-items: left;
+  justify-content: center;
+  margin-left: 176px;
+  -webkit-margin-start: 88px;
+`;
+
 const Contact = () => {
   setPageTitle('Contact');
-
+  
   return (
     <Layout> 
       <Header>
         <h1>Contact</h1>
       </Header>
       <Container>
-        <TextFixer>
-          <Link target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/lvcyinthesky">
-            <FacebookDiamond />
-          </Link>
-          <ParagraphLink target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/lvcyinthesky">lvcyinthesky</ParagraphLink>
-        </TextFixer>
-        <MiddleFixer>
-          <Link href="mailto:cyanicdreams@gmail.com">
-            <MailDiamond />
-          </Link>
-          <ParagraphLink href="mailto:cyanicdreams@gmail.com">cyanic.dreams@gmail.com</ParagraphLink>
-        </MiddleFixer>
-        <TextFixer>
-          <Link target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/morra_inthesky/">
-            <InstagramDiamond />
-          </Link>
-          <ParagraphLink target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/morra_inthesky/">morra_inthesky</ParagraphLink>
-        </TextFixer>
+        <MiddleDiamondsContainer>
+          <TextFixer>
+            <Link target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/lvcyinthesky">
+              <FacebookDiamond />
+            </Link>
+            <ParagraphLink target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/lvcyinthesky">lvcyinthesky</ParagraphLink>
+          </TextFixer>
+          <TextFixer>
+            <Link target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/morra_inthesky/">
+              <InstagramDiamond />
+            </Link>
+            <ParagraphLink target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/morra_inthesky/">morra_inthesky</ParagraphLink>
+          </TextFixer>
+        </MiddleDiamondsContainer>
+        <LeftDiamondsContainer>
+          <TextFixer>
+            <Link href="mailto:cyanicdreams@gmail.com">
+              <MailDiamond />
+            </Link>
+            <ParagraphLink href="mailto:cyanicdreams@gmail.com">cyanic.dreams@gmail.com</ParagraphLink>
+          </TextFixer>
+        </LeftDiamondsContainer>
       </Container>
-      <OctatumContact>Hecho por Octatum</OctatumContact>
+      <OctatumContact target="_blank" href="https://www.octatum.com">By Octatum</OctatumContact>
     </Layout>
   );
 };
