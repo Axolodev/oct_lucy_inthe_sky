@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import store from './store/pictureStore'
+import store from './store/store'
 import App from './containers/App.jsx';
 import registerServiceWorker from './registerServiceWorker';
 

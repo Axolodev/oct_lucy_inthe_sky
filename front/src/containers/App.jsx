@@ -58,6 +58,7 @@ const Main = styled.main`
 class App extends Component {
   componentDidMount = () => {
     this.props.store.fetchPictures();
+    this.props.store.fetchDescription();
   }
 
   render = () => (
@@ -68,7 +69,7 @@ class App extends Component {
         <Main>
           <Switch>
             <Route exact path='/'><Home store={this.props.store}/></Route>
-            <Route path='/about' component={About}/>
+            <Route path='/about'><About store={this.props.store}/></Route>
             <Route path='/contact' component={Contact}/>
           </Switch>
         </Main>

@@ -71,6 +71,10 @@ const OctatumContact = Link.extend`
   &:hover {
     top: -0.7em;
   }
+
+  ${mediaSizeQueries.small`
+    left: 70%;
+  `}
 `;
 
 const Diamond = styled.div`
@@ -146,6 +150,10 @@ const MiddleDiamondsContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+  ${mediaSizeQueries.small`
+    width: auto;
+  `}
 `;
 
 const LeftDiamondsContainer = MiddleDiamondsContainer.extend`
@@ -154,6 +162,11 @@ const LeftDiamondsContainer = MiddleDiamondsContainer.extend`
   justify-content: center;
   margin-left: 176px;
   -webkit-margin-start: 88px;
+
+  ${mediaSizeQueries.small`
+    margin-left: -144px;
+    -webkit-margin-start: -72px;
+  `}
 `;
 
 const Contact = () => {
@@ -167,10 +180,10 @@ const Contact = () => {
       <Container>
         <MiddleDiamondsContainer>
           <TextFixer>
-            <Link target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/lvcyinthesky">
+            <Link target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/lvcyinthesky/">
               <FacebookDiamond />
             </Link>
-            <ParagraphLink target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/lvcyinthesky">lvcyinthesky</ParagraphLink>
+            <ParagraphLink target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/lvcyinthesky/">lvcyinthesky</ParagraphLink>
           </TextFixer>
           <TextFixer>
             <Link target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/morra_inthesky/">

@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://www.octatum.com/lucyinthesky",
+  "homepage": ".",
   "dependencies": {
     "history": "^4.7.2",
     "mobx": "^3.6.1",

@@ -48,16 +48,16 @@ const PictureList = ({pictures, onPictureClick}) => {
   let arrayFirstHalf = pictures.slice(0, halfWayThrough);
   let arraySecondHalf = pictures.slice(halfWayThrough, pictures.length);
 
-  const makePicture = (picture, index) => (
+  const makePicture = (picture) => (
     <ShapedPicture 
       key={picture.imageUrl} 
-      index={index}
+      index={picture.index}
       picture={picture} 
       onClick={onPictureClick}/>
   );
   
-  const largeRenderedPictures = arrayFirstHalf.map((picture, index) => makePicture(picture, index));
-  const shortRenderedPictures = arraySecondHalf.map((picture, index) => makePicture(picture, index));
+  const largeRenderedPictures = arrayFirstHalf.map(picture => makePicture(picture));
+  const shortRenderedPictures = arraySecondHalf.map(picture => makePicture(picture));
 
   return (
     <Container>
