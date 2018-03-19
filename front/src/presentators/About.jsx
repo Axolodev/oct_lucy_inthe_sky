@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { observer } from 'mobx-react';
 
 import mediaSizeQueries from '../constants/media_queries';
 import { setPageTitle } from '../utils/functions';
@@ -48,7 +49,7 @@ const Picture = styled.div`
   grid-column: 2 / -1;
   background-size: contain cover;
   background-repeat: no-repeat;
-  background-image: url('${process.env.PUBLIC_URL}/assets/portrait.jpg');
+  background-image: url('${props => props.aboutPicture}');
   background-position: center top;
 
   ${mediaSizeQueries.small`
@@ -59,7 +60,7 @@ const Picture = styled.div`
   `}
 `
 
-const About = ({store: {description}}) => {
+const About = ({store: {description, aboutPicture}}) => {
   setPageTitle('About');
   
   return (
@@ -68,9 +69,9 @@ const About = ({store: {description}}) => {
         <h1>About</h1>
       </Header>
       <Content dangerouslySetInnerHTML={(() => ({__html: description}))()} />
-      <Picture />
+      <Picture aboutPicture={aboutPicture}/>
     </Layout>
   )
 };
 
-export default About;
+export default observer(About);

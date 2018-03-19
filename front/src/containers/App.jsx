@@ -57,8 +57,7 @@ const Main = styled.main`
 
 class App extends Component {
   componentDidMount = () => {
-    this.props.store.fetchPictures();
-    this.props.store.fetchDescription();
+    this.props.store.fetchAppData();
   }
 
   render = () => (
